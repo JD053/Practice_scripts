@@ -1,0 +1,40 @@
+#!/bin/bash
+
+mpg123 /home/j/Downloads/Pacman_Introduction_Music-KP-826387403\ \(1\).mp3
+
+clear
+x=$((RANDOM%100+1))
+y=0
+
+
+until [[ $usrnbr == $x ]]; 
+	do
+		echo ""
+		echo "The number is between 1 and 100, what is it? "
+			read usrnbr
+		if [[ $usrnbr > $x ]]; 
+			then    echo ""
+				echo "The number you've entered "$usrnbr" is too big"
+		elif [[ $usrnbr < $x ]];
+			then    echo ""	
+				echo ""
+				echo "The number you've entered "$usrnbr" is too small"
+		elif [[ $usrnbr == $x ]];
+			then    echo ""
+				echo "You've found the number congratulations"
+		else 
+			echo "You number was wrong please try again"
+		fi
+
+
+	y=$(($y+1))
+			if [[ $y == "7" ]];
+				then echo "You've run out of tries please restart the script to start again"
+					exit
+			else
+				z=$((7-$y))
+				echo ""
+				echo "You have "$z" tries left"
+			fi
+done
+	
