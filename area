@@ -1,0 +1,84 @@
+#!/bin/bash
+#This scripts purpose is to work out the area of different shapes
+#www.mathsisfun.com/area.html
+
+Selection=
+until [[ "$selection" = "0" ]];do
+	echo "
+	 Area Menu
+ Which area do you want to work out?
+
+ 1 - Circle	 4 - Square
+ 2 - Triangle	 5 - Parallelogram
+ 3 - Rectangle	 6 - Ellipse
+
+	 0 - Exit the Program
+	"
+
+	echo -n "Which option would you like? ---> "
+	read selection
+	
+	if [[ $selection == "1" ]]; #This is for the area of a circle 
+		then echo "
+		Circle"
+		echo "What is the radius of your circle? "
+		read radius
+
+		radius2=$(($radius*$radius))
+		
+		area=$(echo "$radius2*3.1459" | bc )
+		echo "Your area is $area"
+
+	elif [[ $selection == "2" ]]; #This is for the area of Triangles
+		then echo "
+		Triangle"
+		echo -n "What is the height of your triangle? "
+			read height
+		echo -n "What is the base of your triangle? "
+			read base
+		area=$(($base*$height))
+		area=$(($area/2))
+		echo "your area is $area"
+	
+	elif [[ $selection == "3" ]]; #This is for the area of a Rectangle
+		then echo "
+		Rectangle"
+		echo -n "What is the length of your rectangle? "
+			read length
+		echo -n "what is the width of your rectangle? "
+			read width
+		area=$(($length*$width))
+			echo "Your area is $area"
+	elif [[ $selection == "4" ]]; #This is for the area of Circles
+		then echo "
+		Circle"
+		echo "What is the length of one of yoursides? "
+			read length
+		area=$(($area*$area))
+		echo "your area is $area"
+	
+	elif [[ $selection == "5" ]]; #This is for the area of a Paraelleogram
+		then echo "
+		Paraelleogram"
+		echo "What is the vertical height of your shape?"
+			read height
+		echo "What is the base of your shape?"
+			read base
+		area=$(($base*$height))
+		echo "Your area is $area"
+	
+	elif [[ $selection == "6" ]]; #This is for the area of an Ellipse
+		then echo "
+		Ellipse"
+		echo "What is the length of your horizontal Axis?"
+			read horizontal
+		echo "What is the length of your vertical Axis?"
+			read vertical
+		area=$(($horizontal*$vertical))
+		area=$(echo "$area*3.1459" | bc )
+		echo "Your area is $area"
+	else
+		echo "You've entered an incorrect option"
+	fi
+done 
+
