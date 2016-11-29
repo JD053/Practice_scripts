@@ -1,7 +1,7 @@
 #!/bin/bash
 #This scripts purpose is to work out the area of different shapes
 #www.mathsisfun.com/area.html
-
+clear
 
 
 topmenu=
@@ -10,25 +10,26 @@ until [[ "$topmenu" = "0" ]];do
 	 Top Menu
 What kind of Geometry would you like to do?
   1 - Area	2 - Volume
-	0 - Exit the Program
+
+    0 - Exit the Program
 	"
 	echo "Which one would you like to do? "
 		read top
 	
-	if [[ $top == "1" ]];
-	then  
-	Selection=
-	until [[ "$selection" = "0" ]];do
+if [[ $top == "1" ]];
+then  
+Selection=
+until [[ "$selection" = "0" ]];do
 		echo "
-		 Area Menu
- 	Which area do you want to work out?
+	        Area Menu
+     Which area do you want to work out?
 
- 	1 - Circle	 4 - Square
- 	2 - Triangle	 5 - Parallelogram
- 	3 - Rectangle	 6 - Ellipse
+ 1 - Circle	 4 - Square	    7 - Trapezium
+ 2 - Triangle	 5 - Parallelogram
+ 3 - Rectangle	 6 - Ellipse
 
-		 0 - Exit the Program
-		"
+     0 - To return to the previous section
+	"
 
 		echo -n "Which option would you like? ---> "
 		read selection
@@ -42,6 +43,7 @@ What kind of Geometry would you like to do?
 			radius2=$(($radius*$radius))
 		
 			area=$(echo "$radius2*3.1459" | bc )
+			area=$(printf '%.*f' 0 $area)
 			echo "Your area is $area"
 
 		elif [[ $selection == "2" ]]; #This is for the area of Triangles
@@ -68,9 +70,11 @@ What kind of Geometry would you like to do?
 		elif [[ $selection == "4" ]]; #This is for the area of Circles
 			then echo "
 			Circle"
-			echo "What is the length of one of yoursides? "
+			echo "What is the length of one of your sides? "
 				read length
-			area=$(($area*$area))
+			area=$(($length*$length))
+			area=$(echo "$area*3.1459" | bc )
+			area=$(printf '%.*f' 0 $area)
 			echo "your area is $area"
 	
 		elif [[ $selection == "5" ]]; #This is for the area of a Paraelleogram
@@ -92,16 +96,100 @@ What kind of Geometry would you like to do?
 				read vertical
 			area=$(($horizontal*$vertical))
 			area=$(echo "$area*3.1459" | bc )
+			area=$(printf '%.*f' 0 $area)
 			echo "Your area is $area"
+
+		elif [[ $selection == "7" ]]; #This is for Trapezium
+			then echo "
+			Trapezium"
+			echo "What is the length in cm of your top line?"
+				read tpline
+			echo "What is the length in cm of your bottom line?"
+				read btline
+			echo "Whats the vertical height of your Trapezium?"	
+				read height
+			
+			area=$(($tpline+$btline))
+			area=$(($area/2))
+			area=$(($area*$height))
+			echo "The area of the trapezium is $area"
 		else
 			echo "You've entered an incorrect option"
 		fi
 	done 
-	 elif [[ $top == "2" ]];
-		then echo "not programmed yet"
-	 elif [[ $top == "0" ]];
-		then exit
-	 else
-		echo "You should stop"
+elif [[ $top == "2" ]];
+	then
+	until [[ $vol == "0" ]];do 
+		echo "
+	      Volume Menu
+  Which volume would you like to work out?
+
+ 1 - Tetrahedon 4 - Dodecahedron 7 - Cone
+ 2 - Cube	5 - Icosahedron  8 - Prisms
+ 3 - Octahedron 6 - Cylinder	 9 - Torus
+	
+    0 - To return to the previous menu
+"
+	echo -n "Select an option: "
+		read vol
+	
+	if [[ $vol == "1" ]];
+		then echo "
+		Tetrahedon"
+		echo "What is the length of one of your sides?"
+			read side
+		volume=$(($side*$side*$side))
+		square=$(python -c 'import math; print math.sqrt(2)')
+		lower=$(echo "$square*6" | bc )
+		volume=$(echo "$volume/$lower" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The Volume for your Tetrahedon is $volume cm3"
+	
+	elif [[ $vol == "2" ]];
+		then echo "
+		Cube"
+		echo -n "What is the length of your Cube? "
+			read length
+		volume=$(($length*$length*$length))
+		echo "The volume for your Cube is $volume cm3"
+
+	elif [[ $vol == "3" ]];
+		then echo "
+		Octahedron"
+		echo -n "What is the length of one of your sides?"
+			read number
+		volume=$(($number*$number*$number))
+		square=$(echo 'scale=5;sqrt(2)/3' | bc )
+		volume=$(echo "scale=5;$volume*$square" | bc )
+		volume=$(printf '%.*f' 0  $volume)
+		echo $volume
+
+		echo "The volume of your octahedron is $volume cm3"
+	
+	elif [[ $vol == "4" ]];
+		then echo "
+		Dodecahedron"
+		echo "What is the length of one of your edges?"
+			read a
+		volume=$(($a*$a*$a))
+		square=$(python -c 'import math; print math.sqrt(5)')
+                square=$(echo "22*$square" | bc )
+			#echo "this is 22 '*' square: $square"
+		square=$(echo "$square/4" | bc )
+			#echo "This is square divided by 4: $square"
+		volume=$(echo "$square*$volume" | bc )
+		echo "The volume of the dodecahedron is $volume cm3" 
+
+
+
+	else
+		echo "Inncorrect option"
 	fi
+	done
+elif [[ $top == "0" ]];
+	then echo "Thank you for using the Geometry engine"
+	exit
+else
+	echo "You should stop"
+fi
 done	
