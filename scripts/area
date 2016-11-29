@@ -8,9 +8,9 @@ topmenu=
 until [[ "$topmenu" = "0" ]];do
 	echo "
 	 Top Menu
-What kind of Geometry would you like to do?
+What kind of equation would you like to do?
 
-  1 - Area
+  1 - Area	   4 - Clouds
   2 - Volume
   3 - Surface Area
   
@@ -261,8 +261,81 @@ elif [[ $top == "2" ]];
 	fi
 	done
 elif [[ $top == "0" ]];
-	then echo "Thank you for using the Geometry engine"
+	then
+	clear 
+	echo "Thank you for using the Geometry engine"
 	exit
+
+elif [[ $top == "4" ]];
+	then 
+	clear
+	until [[ $glide == "0" ]];do
+		echo "
+	Glding Menu
+ What kind of Gliding equation would you like to do?
+ 1 - Cloudbase & Trigger Temperture
+ 2 - Thermal Strength
+ 
+ 0 - Exit Back to Main Menu
+"
+	echo -n "Select an Option: "
+ 		read glide
+	if [[ $glide == "1" ]];
+		then echo "
+	Cloudbase & Trigger Temperature" 
+		echo "What is your current surface temperature?"
+			read temp
+		echo "What is todays dew point?"
+			read dew
+		cloud=$(($temp-$dew))
+		cloud=$(($cloud*400))
+		echo "Your cloudbase is $cloud'ft'"
+		echo ""
+		
+		cbtemp=$(($cloud/1000))
+		cbtemp=$(($cbtemp*2))
+		cbtemp=$(($temp-$cbtemp))
+		echo "The temperature at your cloudbase will be $cbtemp'°C'"
+		echo ""
+		
+		ttemp=$(($cloud/1000))
+		ttemp=$(($ttemp*3*$cbtemp))
+		echo "Your trigger temperature is $ttemp'°C'"
+	
+	elif [[ $glide == "2" ]];
+		then echo "
+		Thermal Strength"
+		echo "Do you wish to use the cloudbase above? (y/n)"
+			read cloudbase
+		if [[ $cloudbase == "y" ]];
+			then
+				thermal=$(echo "scale=1;$cloud/1000*1.2" | bc )
+				thermal=$(printf '%.*f' 0 $thermal)
+				echo "The thermal strength is $thermal'kts'"
+		elif [[ $cloudbase == "2" ]];
+			then
+				echo "What is your current surface temperature?"
+	                        read temp
+		                echo "What is todays dew point?"
+	                        read dew
+	                	cloud=$(($temp-$dew))
+	                	cloud=$(($cloud*400))
+				thermal=$(echo "scale=1;$cloud/1000*1.2" | bc )
+				thermal=$(printf '%.*f' 0 $thermal)
+				echo "The Termal strength is $thermal'kts'"
+		else
+			echo "Incorrect input please try again"
+		fi
+	elif [[ $cloud == "0" ]];
+		then 
+			echo ""
+			clear
+	else
+		echo "Incorrect input please try again"
+	fi
+		
+
+	done
 else
 	echo "You should stop"
 fi
