@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 #This scripts purpose is to work out the area of different shapes
 #www.mathsisfun.com/area.html
 clear
@@ -9,8 +9,11 @@ until [[ "$topmenu" = "0" ]];do
 	echo "
 	 Top Menu
 What kind of Geometry would you like to do?
-  1 - Area	2 - Volume
 
+  1 - Area
+  2 - Volume
+  3 - Surface Area
+  
     0 - Exit the Program
 	"
 	echo "Which one would you like to do? "
@@ -214,14 +217,41 @@ elif [[ $top == "2" ]];
 			read height
 		echo "What is the radius of your cone?"
 			read radius
-		
+		volume=$(($radius*$radius))
+		volume=$(echo "scale=5;$volume*3.1459" | bc )
+		height=$(echo "scale=5;$height/3" | bc )
+		volume=$(echo "scale=5;$volume*$height" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The volume of the cone is $volume cm3"
+			
 	elif [[ $vol == "8" ]];
 		then echo "
 		Prism"
-
+		echo "what is the vertical height of your Prism?"
+			read vheight
+		echo "What is the width of your Prism?"
+			read width
+		echo "What is the length of your Prism?"
+			read length
+		height=$(echo "scale=5;$vheight/2" | bc )
+		volume=$(echo "scale=5;$height*$width*$length" | bc)
+		volume=$(printf '%.*f' 0 $volume)
+		echo ""
+		echo "The volume of the Prism is $volume cm3"
+		
 	elif [[ $vol == "9" ]];
 		then echo "
-		Trous"	
+		Torus"
+		echo "What is the length of your major radius?"
+			read major
+		echo "What is the length of your minor radius?"
+			read minor
+		volume=$(($minor*$minor))
+		volume=$(echo "scale=5;3.1459*$volume" | bc )
+		volume2=$(echo "scale=5;2*3.1459*$major" | bc )
+		volume=$(echo "scale=5;$volume2*$volume" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The volume of your Torus is $volume cm3"
 	elif [[ $vol == "0" ]];
 		then echo ""
 	else
