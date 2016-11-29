@@ -20,7 +20,7 @@ What kind of Geometry would you like to do?
 		read top
 	
 if [[ $top == "1" ]];
-then  
+then clear  
 Selection=
 until [[ "$selection" = "0" ]];do
 		echo "
@@ -117,13 +117,14 @@ until [[ "$selection" = "0" ]];do
 			area=$(($area*$height))
 			echo "The area of the trapezium is $area"
 		elif [[ $selection == "0" ]];
-			then echo""
+			then echo"" 
+			clear
 		else
 			echo "You've entered an incorrect option"
 		fi
 	done 
 elif [[ $top == "2" ]];
-	then
+	then clear
 	until [[ $vol == "0" ]];do 
 		echo "
 	      Volume Menu
@@ -253,7 +254,8 @@ elif [[ $top == "2" ]];
 		volume=$(printf '%.*f' 0 $volume)
 		echo "The volume of your Torus is $volume cm3"
 	elif [[ $vol == "0" ]];
-		then echo ""
+		then echo "" 
+		clear
 	else
 		echo "Inncorrect option"
 	fi
