@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 #This scripts purpose is to work out the area of different shapes
 #www.mathsisfun.com/area.html
 clear
@@ -113,6 +113,8 @@ until [[ "$selection" = "0" ]];do
 			area=$(($area/2))
 			area=$(($area*$height))
 			echo "The area of the trapezium is $area"
+		elif [[ $selection == "0" ]];
+			then echo""
 		else
 			echo "You've entered an incorrect option"
 		fi
@@ -139,9 +141,8 @@ elif [[ $top == "2" ]];
 		echo "What is the length of one of your sides?"
 			read side
 		volume=$(($side*$side*$side))
-		square=$(python -c 'import math; print math.sqrt(2)')
-		lower=$(echo "$square*6" | bc )
-		volume=$(echo "$volume/$lower" | bc )
+		lower=$(echo "scale=5;sqrt(2)*6" | bc )
+		volume=$(echo "scale=5;$volume/$lower" | bc )
 		volume=$(printf '%.*f' 0 $volume)
 		echo "The Volume for your Tetrahedon is $volume cm3"
 	
@@ -172,16 +173,57 @@ elif [[ $top == "2" ]];
 		echo "What is the length of one of your edges?"
 			read a
 		volume=$(($a*$a*$a))
-		square=$(python -c 'import math; print math.sqrt(5)')
-                square=$(echo "22*$square" | bc )
+                square=$(echo "scale=5;sqrt(5)*22" | bc )
 			#echo "this is 22 '*' square: $square"
-		square=$(echo "$square/4" | bc )
+		square=$(echo "scale=5;$square/4" | bc )
 			#echo "This is square divided by 4: $square"
-		volume=$(echo "$square*$volume" | bc )
+		volume=$(echo "scale=5;$square*$volume" | bc )
+		volume=$(printf '%.*f' 0 $volume)
 		echo "The volume of the dodecahedron is $volume cm3" 
 
+	elif [[ $vol == "5" ]];
+		then echo "
+		Icosahedron"
+		echo "what is the length of one of the edges?"
+			read a
+		volume=$(echo "scale=5;sqrt(5)+3" | bc )
+		volume=$(echo "scale=5;$volume*5" | bc )
+		volume=$(echo "scale=5;$volume/12" | bc )
+		cube=$(($a*$a*$a))
+		volume=$(echo "scale=5;$cube*$volume" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The volume of the Icosahedron is $volume"		
 
+	elif [[ $vol = "6" ]];
+		then echo "
+		Cylinder"
+		echo "What is the height of your Cylinder?"
+			read height
+		echo "what is the radius of your Cylinder?"
+			read radius
+		volume=$(($radius*$radius))
+		volume=$(echo "scale=5;3.1459*$volume" | bc )
+		volume=$(echo "scale=5;$volume*$height" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The Volume for the Cylinder is $volume cm3"
+	
+	elif [[ $vol == "7" ]];
+		then echo "
+		cone"
+		echo "What is the height of your cone?"
+			read height
+		echo "What is the radius of your cone?"
+			read radius
+		
+	elif [[ $vol == "8" ]];
+		then echo "
+		Prism"
 
+	elif [[ $vol == "9" ]];
+		then echo "
+		Trous"	
+	elif [[ $vol == "0" ]];
+		then echo ""
 	else
 		echo "Inncorrect option"
 	fi
