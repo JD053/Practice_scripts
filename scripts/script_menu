@@ -1,0 +1,349 @@
+#!/bin/bash
+#This scripts purpose is to work out the area of different shapes
+
+
+clear
+
+re="^[0-9]+$"
+
+topmenu=
+until [[ "$topmenu" = "0" ]];do
+	echo "
+	 Top Menu
+What kind of equation would you like to do?
+
+  1 - Area	   4 - Clouds
+  2 - Volume
+  3 - Surface Area
+  
+    0 - Exit the Program
+	"
+	echo "Which one would you like to do? "
+		read top
+	
+if [[ $top == "1" ]];
+then clear  
+Selection=
+until [[ "$selection" = "0" ]];do
+		echo "
+	        Area Menu
+     Which area do you want to work out?
+
+ 1 - Circle	 4 - Square	    7 - Trapezium
+ 2 - Triangle	 5 - Parallelogram
+ 3 - Rectangle	 6 - Ellipse
+
+     0 - To return to the previous section
+	"
+
+		echo -n "Which option would you like? ---> "
+		read selection
+	
+		if [[ $selection == "1" ]]; #This is for the area of a circle 
+			then echo "
+			Circle"
+			echo "What is the radius of your circle? "
+			read radius
+
+			if ! [[ $radius =~ $re ]];
+				then
+					echo "This is not an integer, please try again"
+				else
+					echo "This is an integer"
+			radius2=$(($radius*$radius))
+		
+			area=$(echo "$radius2*3.1459" | bc )
+			area=$(printf '%.*f' 0 $area)
+			echo "Your area is $area"
+			fi
+		elif [[ $selection == "2" ]]; #This is for the area of Triangles
+			then echo "
+			Triangle"
+			echo -n "What is the height of your triangle? "
+				read height
+			echo -n "What is the base of your triangle? "
+				read base
+			area=$(($base*$height))
+			area=$(($area/2))
+			echo "your area is $area"
+	
+		elif [[ $selection == "3" ]]; #This is for the area of a Rectangle
+			then echo "
+			Rectangle"
+			echo -n "What is the length of your rectangle? "
+				read length
+			echo -n "what is the width of your rectangle? "
+				read width
+			area=$(($length*$width))
+				echo "Your area is $area"
+
+		elif [[ $selection == "4" ]]; #This is for the area of Circles
+			then echo "
+			Circle"
+			echo "What is the length of one of your sides? "
+				read length
+			area=$(($length*$length))
+			area=$(echo "$area*3.1459" | bc )
+			area=$(printf '%.*f' 0 $area)
+			echo "your area is $area"
+	
+		elif [[ $selection == "5" ]]; #This is for the area of a Paraelleogram
+			then echo "
+			Paraelleogram"
+			echo "What is the vertical height of your shape?"
+				read height
+			echo "What is the base of your shape?"
+				read base
+			area=$(($base*$height))
+			echo "Your area is $area"
+	
+		elif [[ $selection == "6" ]]; #This is for the area of an Ellipse
+			then echo "
+			Ellipse"
+			echo "What is the length of your horizontal Axis?"
+				read horizontal
+			echo "What is the length of your vertical Axis?"
+				read vertical
+			area=$(($horizontal*$vertical))
+			area=$(echo "$area*3.1459" | bc )
+			area=$(printf '%.*f' 0 $area)
+			echo "Your area is $area"
+
+		elif [[ $selection == "7" ]]; #This is for Trapezium
+			then echo "
+			Trapezium"
+			echo "What is the length in cm of your top line?"
+				read tpline
+			echo "What is the length in cm of your bottom line?"
+				read btline
+			echo "Whats the vertical height of your Trapezium?"	
+				read height
+			
+			area=$(($tpline+$btline))
+			area=$(($area/2))
+			area=$(($area*$height))
+			echo "The area of the trapezium is $area"
+		elif [[ $selection == "0" ]];
+			then echo"" 
+			clear
+		else
+			echo "You've entered an incorrect option"
+		fi
+	done 
+elif [[ $top == "2" ]];
+	then clear
+	until [[ $vol == "0" ]];do 
+		echo "
+	      Volume Menu
+  Which volume would you like to work out?
+
+ 1 - Tetrahedon 4 - Dodecahedron 7 - Cone
+ 2 - Cube	5 - Icosahedron  8 - Prisms
+ 3 - Octahedron 6 - Cylinder	 9 - Torus
+	
+    0 - To return to the previous menu
+"
+	echo -n "Select an option: "
+		read vol
+	
+	if [[ $vol == "1" ]];
+		then echo "
+		Tetrahedon"
+		echo "What is the length of one of your sides?"
+			read side
+		volume=$(($side*$side*$side))
+		lower=$(echo "scale=5;sqrt(2)*6" | bc )
+		volume=$(echo "scale=5;$volume/$lower" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The Volume for your Tetrahedon is $volume cm3"
+	
+	elif [[ $vol == "2" ]];
+		then echo "
+		Cube"
+		echo -n "What is the length of your Cube? "
+			read length
+		volume=$(($length*$length*$length))
+		echo "The volume for your Cube is $volume cm3"
+
+	elif [[ $vol == "3" ]];
+		then echo "
+		Octahedron"
+		echo -n "What is the length of one of your sides?"
+			read number
+		volume=$(($number*$number*$number))
+		square=$(echo 'scale=5;sqrt(2)/3' | bc )
+		volume=$(echo "scale=5;$volume*$square" | bc )
+		volume=$(printf '%.*f' 0  $volume)
+		echo $volume
+
+		echo "The volume of your octahedron is $volume cm3"
+	
+	elif [[ $vol == "4" ]];
+		then echo "
+		Dodecahedron"
+		echo "What is the length of one of your edges?"
+			read a
+		volume=$(($a*$a*$a))
+                square=$(echo "scale=5;sqrt(5)*22" | bc )
+			#echo "this is 22 '*' square: $square"
+		square=$(echo "scale=5;$square/4" | bc )
+			#echo "This is square divided by 4: $square"
+		volume=$(echo "scale=5;$square*$volume" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The volume of the dodecahedron is $volume cm3" 
+
+	elif [[ $vol == "5" ]];
+		then echo "
+		Icosahedron"
+		echo "what is the length of one of the edges?"
+			read a
+		volume=$(echo "scale=5;sqrt(5)+3" | bc )
+		volume=$(echo "scale=5;$volume*5" | bc )
+		volume=$(echo "scale=5;$volume/12" | bc )
+		cube=$(($a*$a*$a))
+		volume=$(echo "scale=5;$cube*$volume" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The volume of the Icosahedron is $volume"		
+
+	elif [[ $vol = "6" ]];
+		then echo "
+		Cylinder"
+		echo "What is the height of your Cylinder?"
+			read height
+		echo "what is the radius of your Cylinder?"
+			read radius
+		volume=$(($radius*$radius))
+		volume=$(echo "scale=5;3.1459*$volume" | bc )
+		volume=$(echo "scale=5;$volume*$height" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The Volume for the Cylinder is $volume cm3"
+	
+	elif [[ $vol == "7" ]];
+		then echo "
+		cone"
+		echo "What is the height of your cone?"
+			read height
+		echo "What is the radius of your cone?"
+			read radius
+		volume=$(($radius*$radius))
+		volume=$(echo "scale=5;$volume*3.1459" | bc )
+		height=$(echo "scale=5;$height/3" | bc )
+		volume=$(echo "scale=5;$volume*$height" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The volume of the cone is $volume cm3"
+			
+	elif [[ $vol == "8" ]];
+		then echo "
+		Prism"
+		echo "what is the vertical height of your Prism?"
+			read vheight
+		echo "What is the width of your Prism?"
+			read width
+		echo "What is the length of your Prism?"
+			read length
+		height=$(echo "scale=5;$vheight/2" | bc )
+		volume=$(echo "scale=5;$height*$width*$length" | bc)
+		volume=$(printf '%.*f' 0 $volume)
+		echo ""
+		echo "The volume of the Prism is $volume cm3"
+		
+	elif [[ $vol == "9" ]];
+		then echo "
+		Torus"
+		echo "What is the length of your major radius?"
+			read major
+		echo "What is the length of your minor radius?"
+			read minor
+		volume=$(($minor*$minor))
+		volume=$(echo "scale=5;3.1459*$volume" | bc )
+		volume2=$(echo "scale=5;2*3.1459*$major" | bc )
+		volume=$(echo "scale=5;$volume2*$volume" | bc )
+		volume=$(printf '%.*f' 0 $volume)
+		echo "The volume of your Torus is $volume cm3"
+	elif [[ $vol == "0" ]];
+		then echo "" 
+		clear
+	else
+		echo "Inncorrect option"
+	fi
+	done
+elif [[ $top == "0" ]];
+	then
+	clear 
+	echo "Thank you for using the Geometry engine"
+	exit
+
+elif [[ $top == "4" ]];
+	then 
+	clear
+	until [[ $glide == "0" ]];do
+		echo "
+	Glding Menu
+ What kind of Gliding equation would you like to do?
+ 1 - Cloudbase & Trigger Temperture
+ 2 - Thermal Strength
+ 
+ 0 - Exit Back to Main Menu
+"
+	echo -n "Select an Option: "
+ 		read glide
+	if [[ $glide == "1" ]];
+		then echo "
+	Cloudbase & Trigger Temperature" 
+		echo "What is your current surface temperature?"
+			read temp
+		echo "What is todays dew point?"
+			read dew
+		cloud=$(($temp-$dew))
+		cloud=$(($cloud*400))
+		echo "Your cloudbase is $cloud'ft'"
+		echo ""
+		
+		cbtemp=$(($cloud/1000))
+		cbtemp=$(($cbtemp*2))
+		cbtemp=$(($temp-$cbtemp))
+		echo "The temperature at your cloudbase will be $cbtemp'°C'"
+		echo ""
+		
+		ttemp=$(($cloud/1000))
+		ttemp=$(($ttemp*3*$cbtemp))
+		echo "Your trigger temperature is $ttemp'°C'"
+	
+	elif [[ $glide == "2" ]];
+		then echo "
+		Thermal Strength"
+		echo "Do you wish to use the cloudbase above? (y/n)"
+			read cloudbase
+		if [[ $cloudbase == "y" ]];
+			then
+				thermal=$(echo "scale=1;$cloud/1000*1.2" | bc )
+				thermal=$(printf '%.*f' 0 $thermal)
+				echo "The thermal strength is $thermal'kts'"
+		elif [[ $cloudbase == "2" ]];
+			then
+				echo "What is your current surface temperature?"
+	                        read temp
+		                echo "What is todays dew point?"
+	                        read dew
+	                	cloud=$(($temp-$dew))
+	                	cloud=$(($cloud*400))
+				thermal=$(echo "scale=1;$cloud/1000*1.2" | bc )
+				thermal=$(printf '%.*f' 0 $thermal)
+				echo "The Termal strength is $thermal'kts'"
+		else
+			echo "Incorrect input please try again"
+		fi
+	elif [[ $cloud == "0" ]];
+		then 
+			echo ""
+			clear
+	else
+		echo "Incorrect input please try again"
+	fi
+		
+
+	done
+else
+	echo "You should stop"
+fi
+done	
