@@ -44,70 +44,123 @@ until [[ "$selection" = "0" ]];do
 			Circle"
 			echo "What is the radius of your circle? "
 			read radius
-
 			if ! [[ $radius =~ $re ]];
 				then
 					echo "This is not an integer, please try again"
 				else
-					echo "This is an integer"
+					echo ""
 			radius2=$(($radius*$radius))
 		
 			area=$(echo "$radius2*3.1459" | bc )
 			area=$(printf '%.*f' 0 $area)
 			echo "Your area is $area"
-			fi
+				fi
 		elif [[ $selection == "2" ]]; #This is for the area of Triangles
 			then echo "
 			Triangle"
 			echo -n "What is the height of your triangle? "
 				read height
+					if ! [[ $height =~ $re ]];
+                                then
+                                        echo "This is not an integer, please try again"
+					echo ""
+                                else
 			echo -n "What is the base of your triangle? "
 				read base
+					if ! [[ $base =~ $re ]];
+                                	then
+                                        	echo "This is not an integer, please try again"
+						echo ""
+                                	else
 			area=$(($base*$height))
 			area=$(($area/2))
 			echo "your area is $area"
-	
+					fi
+					fi
+
 		elif [[ $selection == "3" ]]; #This is for the area of a Rectangle
 			then echo "
 			Rectangle"
 			echo -n "What is the length of your rectangle? "
 				read length
+					if ! [[ $length =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 			echo -n "what is the width of your rectangle? "
 				read width
+					if ! [[ $width =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+					else
 			area=$(($length*$width))
 				echo "Your area is $area"
+					fi
+					fi
 
 		elif [[ $selection == "4" ]]; #This is for the area of Circles
 			then echo "
 			Circle"
 			echo "What is the length of one of your sides? "
 				read length
+					if ! [[ $length =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 			area=$(($length*$length))
 			area=$(echo "$area*3.1459" | bc )
 			area=$(printf '%.*f' 0 $area)
 			echo "your area is $area"
-	
+					fi	
+
 		elif [[ $selection == "5" ]]; #This is for the area of a Paraelleogram
 			then echo "
 			Paraelleogram"
 			echo "What is the vertical height of your shape?"
 				read height
+					if ! [[ $height =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 			echo "What is the base of your shape?"
 				read base
+					if ! [[ $base =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 			area=$(($base*$height))
 			echo "Your area is $area"
-	
+					fi
+					fi
+
 		elif [[ $selection == "6" ]]; #This is for the area of an Ellipse
 			then echo "
 			Ellipse"
 			echo "What is the length of your horizontal Axis?"
 				read horizontal
+					if ! [[ $horizontal =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 			echo "What is the length of your vertical Axis?"
 				read vertical
+					if ! [[ $vertical =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 			area=$(($horizontal*$vertical))
 			area=$(echo "$area*3.1459" | bc )
 			area=$(printf '%.*f' 0 $area)
 			echo "Your area is $area"
+					fi
+					fi
 
 		elif [[ $selection == "7" ]]; #This is for Trapezium
 			then echo "
@@ -336,6 +389,7 @@ elif [[ $top == "3" ]];
 		radius=$(echo "scale=5; $radius+$radius2" | bc )
 		radius=$(printf '%.*f' 0 $radius)
 		echo "The surface area for your cone is $radius"
+
 	elif [[ $surface == "0" ]];
 		then echo ""
 		clear
@@ -538,18 +592,6 @@ elif [[ $top == "6" ]];
 	done
 
 	echo ""
-
-	if [ $# -ne 2 ]; then
-		echo -e "\nUsage:\t$0 START END\n"
-		exit 1
-	fi 
-	DIFF=$(($2-$1+1))
-	RANDOM=$$
-	for i in `seq 5`
-	do
-		R=$(($(($RANDOM%$DIFF))+$1))
-		echo $R
-	done
 
 elif [[ $top == "7" ]];
 	then echo "
