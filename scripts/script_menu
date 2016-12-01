@@ -8,17 +8,17 @@ re="^[0-9]+$"
 
 topmenu=
 until [[ "$topmenu" = "0" ]];do
-	echo "
-	 Top Menu
-What kind of equation would you like to do?
+	
+	       banner "Main Menu"
+echo "         Which script would you like to do?
 
   1 - Area	   4 - Clouds		       7 - Etes
   2 - Volume	   5 - Text Based Adventure
   3 - Surface Area 6 - Random number Generator
   
-    0 - Exit the Program
-	"
-	echo "Which one would you like to do? "
+               0 - Exit the Program
+"
+	echo -n "      Which one would you like to do? "
 		read top
 	
 if [[ $top == "1" ]];
@@ -273,7 +273,77 @@ elif [[ $top == "0" ]];
 	echo "Thank you for using the Geometry engine"
 	exit
 
+elif [[ $top == "3" ]];
+	then clear
+	until [[ $surface == "0" ]];do
+	echo " 
+	     Surface Area
+ Which surface are would you like to work out?
+ 1 - Cube	4 - Cone
+ 2 - Cylinder	
+ 3 - Sphere
 
+   0 - Back to the main menu"
+		read surface
+	if [[ $surface == "1" ]];
+		then echo "
+		Cube"
+		echo "How long is one of the edges of your cube?"
+			read edge
+		area=$(($edge*$edge))
+		area=$(($area*6))
+		echo "The surface area for your Cube is $area"
+	elif [[ $surface == "2" ]];
+		then echo "
+		Cylinder"
+
+		echo "How long is your Cylinder?"
+			read height
+		echo "What is the radius of your Cylinder?"
+			read radius
+
+		radius2=$((radius*radius))
+		radius2=$(echo "scale=5; 2*3.1459*$radius2" | bc )
+		radius=$(echo "scale=5; 2*3.1459*$radius*$height" | bc )
+		radius=$(echo "scale=5; $radius+$radius2" | bc )
+		radius=$(printf '%.*f' 0 $radius)
+		echo "The surface area of your cylinder is $radius"
+
+	elif [[ $surface == "3" ]];
+		then echo "
+		Sphere"
+		
+		echo "What is the radius of your sphere?"
+			read radius
+		
+		area=$(($radius*$radius))
+		area=$(echo "scale=5; 4*3.1459*$radius")
+		area=$(printf '%.*f' 0 $radius)
+		echo "The surface area of your sphere is $area"
+
+	elif [[ $surface == "4" ]]
+		then echo "
+		Cone"
+		
+		echo "How long is your cone from tip to base?"
+			read length
+		echo "What is the radius of your cone?"
+			read radius
+
+		radius2=$(($radius*$radius))
+		radius2=$(echo "scale=5; 3.1459*$radius2" | bc )
+		radius=$(echo "scale=5; 3.1459*$radius*$length" | bc )
+		radius=$(echo "scale=5; $radius+$radius2" | bc )
+		radius=$(printf '%.*f' 0 $radius)
+		echo "The surface area for your cone is $radius"
+	elif [[ $surface == "0" ]];
+		then echo ""
+		clear
+
+	else
+		echo "That is an incorrect function please try again"
+	fi
+	done
 
 elif [[ $top == "4" ]];
 	then 
