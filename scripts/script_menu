@@ -12,9 +12,10 @@ until [[ "$topmenu" = "0" ]];do
 	       banner "Main Menu"
 echo "         Which script would you like to do?
 
-  1 - Area	   4 - Clouds		       7 - Etes
-  2 - Volume	   5 - Text Based Adventure
-  3 - Surface Area 6 - Random number Generator
+  1 - Area	   5 - Text Based Adventure    9 - Time calculator
+  2 - Volume	   6 - Random number Generator 10 - Odd or Even
+  3 - Surface Area 7 - Etes		       
+  4 - Clouds 	   8 - Arithmetic Expansion 
   
                0 - Exit the Program
 "
@@ -167,21 +168,42 @@ until [[ "$selection" = "0" ]];do
 			Trapezium"
 			echo "What is the length in cm of your top line?"
 				read tpline
+					if ! [[ $tpline =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 			echo "What is the length in cm of your bottom line?"
 				read btline
+					if ! [[ $btline =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 			echo "Whats the vertical height of your Trapezium?"	
 				read height
-			
+					if ! [[ $height =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else			
+
 			area=$(($tpline+$btline))
 			area=$(($area/2))
 			area=$(($area*$height))
 			echo "The area of the trapezium is $area"
+			fi
+			fi
+			fi
+
+
 		elif [[ $selection == "0" ]];
 			then echo"" 
 			clear
 		else
 			echo "You've entered an incorrect option"
 		fi
+								
 	done 
 elif [[ $top == "2" ]];
 	then clear
@@ -198,31 +220,53 @@ elif [[ $top == "2" ]];
 "
 	echo -n "Select an option: "
 		read vol
+			if ! [[ $vol =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 	
 	if [[ $vol == "1" ]];
 		then echo "
 		Tetrahedon"
 		echo "What is the length of one of your sides?"
 			read side
+				if ! [[ $side =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 		volume=$(($side*$side*$side))
 		lower=$(echo "scale=5;sqrt(2)*6" | bc )
 		volume=$(echo "scale=5;$volume/$lower" | bc )
 		volume=$(printf '%.*f' 0 $volume)
 		echo "The Volume for your Tetrahedon is $volume cm3"
-	
+				fi
+					
 	elif [[ $vol == "2" ]];
 		then echo "
 		Cube"
 		echo -n "What is the length of your Cube? "
 			read length
+				if ! [[ $length =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 		volume=$(($length*$length*$length))
 		echo "The volume for your Cube is $volume cm3"
+				fi
 
 	elif [[ $vol == "3" ]];
 		then echo "
 		Octahedron"
 		echo -n "What is the length of one of your sides?"
 			read number
+				if ! [[ $number =~ $re ]];
+                                        then
+                                                echo "This is not an integer, please try again"
+                                                echo ""
+                                        else
 		volume=$(($number*$number*$number))
 		square=$(echo 'scale=5;sqrt(2)/3' | bc )
 		volume=$(echo "scale=5;$volume*$square" | bc )
@@ -230,7 +274,8 @@ elif [[ $top == "2" ]];
 		echo $volume
 
 		echo "The volume of your octahedron is $volume cm3"
-	
+				fi	
+
 	elif [[ $vol == "4" ]];
 		then echo "
 		Dodecahedron"
@@ -319,6 +364,8 @@ elif [[ $top == "2" ]];
 	else
 		echo "Inncorrect option"
 	fi
+			fi
+			
 	done
 elif [[ $top == "0" ]];
 	then
@@ -422,12 +469,14 @@ elif [[ $top == "4" ]];
 			read dew
 		cloud=$(($temp-$dew))
 		cloud=$(($cloud*400))
+		echo ""
 		echo "Your cloudbase is $cloud'ft'"
 		echo ""
 		
 		cbtemp=$(($cloud/1000))
 		cbtemp=$(($cbtemp*2))
 		cbtemp=$(($temp-$cbtemp))
+		echo ""
 		echo "The temperature at your cloudbase will be $cbtemp'°C'"
 		echo ""
 		
@@ -444,7 +493,9 @@ elif [[ $top == "4" ]];
 			then
 				thermal=$(echo "scale=1;$cloud/1000*1.2" | bc )
 				thermal=$(printf '%.*f' 0 $thermal)
+				echo ""
 				echo "The thermal strength is $thermal'kts'"
+				echo ""
 		elif [[ $cloudbase == "2" ]];
 			then
 				echo "What is your current surface temperature?"
@@ -597,8 +648,58 @@ elif [[ $top == "7" ]];
 	then echo "
 	etes"
 	chromium-browser https://etes.csc.com/iTES/loginframe.asp
+
+elif [[ $top == "8" ]];
+	then clear echo "
+	Time calculations"
 	
+	echo -n "Enter the first number ---> "
+		read num1
+	echo -n "Enter the second number ----> "
+		read num2
+
+	echo "First number + second number=$(($num1+$num2))"
+	echo "First number - second number=$(($num1-$num2))"
+	echo "First number * second number=$(($num1*$num2))"
+	echo "First number / second number=$(($num1/$num2))"
+	echo "First number % second number=$(($num1%$num2))"
+	echo "First number rasied to the power of the second number=$(($num1**$num2))"
+
+elif [[ $top == "9" ]];
+	then clear echo "
+	Time calcualtor"
+	
+	seconds=0
+
+	echo -n "Enter number of seconds ----> "
+		read seconds
+
+	hours=$(($seconds / 3600))
+	seconds=$(($seconds % 3600))
+	minutes=$(($seconds / 60))
+	seconds=$(($seconds % 60))
+
+	echo ""
+	echo "$hours hour(s) $minutes minutes(s) $seconds second(s)"
+	echo ""
+
+elif [[ $top == "10" ]];
+	then clear echo "
+	Odd or Even"
+
+	number=0
+
+	echo -n "Enter a number ---> "
+		read number
+	
+	echo "Number is $number"
+	if [ $(($number % 2)) -eq 0 ];
+		then echo "The number is even"
+	else
+		echo "The number is odd"
+	fi
+
 else
-	echo "You should stop"
+	echo "That is an incorrect option, please try again"
 fi
 done	
