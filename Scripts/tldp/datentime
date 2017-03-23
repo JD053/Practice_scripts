@@ -1,0 +1,20 @@
+#!/bin/bash
+#By James Dunford
+#Date 'n time
+
+echo "The number of days since the year's beginning is `date +%j`."
+#date needs a leading '+' to envoke formatting
+# %j gives day of year
+
+echo "The number of seconds elapsed since 01/01/1970 is `date +%s`."
+# %s yields number of seconds since "UNIX epoch began.
+# But how is this useful
+
+prefix=temp
+suffix=$(date +%s) #The +%s option to date is GNU-specific.
+filename=$prefix.$suffix
+echo "temporary filename = $filename"
+#its great for creating "unique and random" temp filenames.
+#even better than using $$
+
+exit 0 

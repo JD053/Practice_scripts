@@ -1,0 +1,9 @@
+#!/bin/bash
+#this is a script to cleanout the var logs
+
+sudo -i
+
+cd /var/logs
+cat /dev/null > messages
+cat /dev/null > wtmp
+echo "Log files cleaned up"

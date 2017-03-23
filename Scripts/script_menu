@@ -14,7 +14,7 @@ echo "         Which script would you like to do?
 
   1 - Area	   5 - Text Based Adventure    9 - Time calculator
   2 - Volume	   6 - Random number Generator 10 - Odd or Even
-  3 - Surface Area 7 - Etes		       
+  3 - Surface Area 7 - Etes		       11 - Sentence discombobulator		       
   4 - Clouds 	   8 - Arithmetic Expansion 
   
                0 - Exit the Program
@@ -602,6 +602,41 @@ elif [[ $top == "10" ]];
 	else
 		echo "The number is odd"
 	fi
+
+elif [[ $top == "11" ]];
+	then clear echo "
+	sentence discombobulator"
+		echo "Enter a word or phrase"
+		read word1
+		echo "Enter another"
+		read word2
+		echo "and another"
+		read word3
+		echo "Final word or phrase"
+		read word4 
+		
+
+		count=0
+		until [[ $count = 4 ]]; do
+		 
+			count=$(($count + 1))
+
+			number=$(( (RANDOM % 4) + 1))
+	
+				case $number in 
+					1 ) word12=$word 
+					;;
+					2 ) word22=$word2
+					;; 
+					3 ) word23=$word3
+					;;
+					4 ) word42=$word4
+					;;
+					* ) echo "Man something broke"
+				esac
+		done 
+
+		echo "This sentence is made up of random words like $word12 $word22 $word32 $word42"
 
 else
 	echo "That is an incorrect option, please try again"

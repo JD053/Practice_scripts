@@ -1,0 +1,42 @@
+#!/bin/bash
+# Cleanup script Version 3
+#By James Dunford
+#Copied from Advanced bash-Scripting Guide (www.tldp.org/LDP/abs/html/sha-bang.html)
+#This script is to be run as root
+
+LOG_DIR=/var/log
+ROOT_UID=0 #Only users with the $UID 0 have root privileges
+LINES=50 #Default number of lines saved
+E_XCD=86 #Can't change directory
+E_NOTROOT=87 #non-root exit error
+
+if [ "$UID" -ne "$UID_ROOT" ]
+	then
+		echo "Must be root to run this script"
+		exit $E_NOTROOT
+fi
+
+if [ -n "$1" ] #This tests whether command-line argument is present i.e. non-empty
+	then 
+		lines=$1
+else
+	lines=$LINES
+fi
+
+cd $LOG_DIR
+
+if [ `pwd` != "$LOG_DIR" ] # or if [ "$PWD" != "$LOG_DIR" ]
+			   # Not in /var/log
+	then
+		echo "Can't change to $LOG_DIR."
+		exit $E_XCD
+fi # This checks whether you're in the right directory before messing with it
+
+tail -n $lines messages > mesg.temp # save the last section of the message log file
+mv mesg.temp messages 		    # rename it as system log file.
+
+cat /dev/null > wtmp # ': wtmp' and '> wtmp' do the same thing
+echo "log files cleaned up"
+
+exit 0
+# A zero value from the script upon exit indicates a success to the shell

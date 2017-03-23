@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "Part 1 of script."
+a=1
+
+#!/bin/bash
+# This does *not* launch a new script.
+
+echo "Part 2 of script."
+echo $a #Value of $a stays at 1.
+
+echo "Self- deleting script"
+
+#!/bin/rm
+#nothing much seems to happen when you run this... except that the file disappears
+
+WHATEVER=85
+
+echo "This line will never print (betcha!)."
+
+exit $WHATEVER #Does't matter. The Script will not exit here.
+	       # Try and echo $? after the script termination
+ 	       # You'll get a 0, not a 85
